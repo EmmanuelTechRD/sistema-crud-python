@@ -1,12 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Inicio</title>
-</head>
-<body>
-    Hola Flask :D
-</body>
-</html>
+{% include 'header.html' %}
+<br>
+    <a href='{{url_for("create")}}' class='btn btn-success'>
+        + Agregar Empleado
+    </a>
+<br>
+<br>
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cédula</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{empleado[0]}}</td>
+                <td>{{empleado[1]}}</td>
+                <td>{{empleado[2]}}</td>
+                <td>{{empleado[3]}}</td>
+                <td>{{empleado[4]}}</td>
+                <td>{{empleado[5]}}</td>
+                <td>
+                    <a href="/edit/{{empleado[0]}}" class="btn btn-warning">Editar</a> | 
+                    <a onclick="return confirm('¿Confirma que desea borrar el registro #{{empleado[0]}} del empleado?')" href="/destroy/{{empleado[0]}}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'footer.html' %}
